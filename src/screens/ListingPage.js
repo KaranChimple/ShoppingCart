@@ -4,6 +4,7 @@ import {View, Text, ActivityIndicator, FlatList, StyleSheet, Image, TouchableOpa
 import { getItemList } from '../actions/fetchList';
 import { SCREEN_NAMES } from '../../constants';
 import { updateCart } from '../actions/updateCart';
+import { Loader } from './Loader';
 
 export const ListingPage = ({changeScreen = () => {}}) => {
     const dispatch = useDispatch();
@@ -16,7 +17,6 @@ export const ListingPage = ({changeScreen = () => {}}) => {
     }, []);
 
     const onAddToCartPress = (item) => {
-        console.log("Added to cart", item);
         dispatch(updateCart(item, "ADD"));
         changeScreen(SCREEN_NAMES.CART);
     }
@@ -39,9 +39,7 @@ export const ListingPage = ({changeScreen = () => {}}) => {
     
     if(isLoading) {
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <ActivityIndicator size="large" />
-            </View>
+            <Loader />
         )
     }
     return (

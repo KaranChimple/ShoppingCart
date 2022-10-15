@@ -4,16 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {View, Text, ActivityIndicator, FlatList, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { SCREEN_NAMES } from '../../constants';
 import { updateCart } from '../actions/updateCart';
+import { Loader } from './Loader';
 
 
 export const CartListPage = ({changeScreen = () => {}}) => {
     const dispatch = useDispatch();
-    const cartItems = useSelector(({cart}) => cart);
     const data = useSelector(({cart}) => cart.cartList);
     const isLoading = useSelector(({cart}) => cart.loading);
     const error = useSelector(({cart}) => cart.error);
-
-    console.log("================================================", cartItems, data, isLoading, error);
 
     const updateCartItems = (type = '', item = {}) => {
         switch(type) {
@@ -53,9 +51,7 @@ export const CartListPage = ({changeScreen = () => {}}) => {
 
     if(isLoading) {
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <ActivityIndicator size="large" />
-            </View>
+            <Loader />
         )
     }
     return (
