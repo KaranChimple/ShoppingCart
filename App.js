@@ -1,14 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet } from 'react-native';
+import {Provider} from 'react-redux';
+import { SCREEN_NAMES } from './constants';
+import { CartListPage } from './src/screens/CartListPage';
+import {ListingPage} from './src/screens/ListingPage';
+import store from './src/store';
 
 export default function App() {
+  const [selectedScreen, changeSelectedScreen] = useState(SCREEN_NAMES.LIST);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Provider store={store}>
+      {selectedScreen === SCREEN_NAMES.LIST && <ListingPage changeScreen={changeSelectedScreen} />}
+      {selectedScreen === SCREEN_NAMES.CART && <CartListPage changeScreen={changeSelectedScreen} />}
+    </Provider>
+  );  
 }
 
 const styles = StyleSheet.create({
