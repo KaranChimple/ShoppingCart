@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {View, Text, ActivityIndicator, FlatList, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import {View, Text, SafeAreaView, FlatList, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { SCREEN_NAMES } from '../../constants';
 import { updateCart } from '../actions/updateCart';
 import { Loader } from './Loader';
@@ -54,8 +54,13 @@ export const CartListPage = ({changeScreen = () => {}}) => {
             <Loader />
         )
     }
+
+    let myTotal = 0;
+    data.forEach(item => {
+        myTotal = myTotal + (item.price * item.count);
+    })
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
                 <TouchableOpacity onPress={() => changeScreen(SCREEN_NAMES.LIST)}>
                     <Icon name="arrow-left" style={{marginRight: 8}} size={25} />
@@ -67,7 +72,9 @@ export const CartListPage = ({changeScreen = () => {}}) => {
               renderItem={renderItem}
               ItemSeparatorComponent={ () => <View style={{margin: 16}} />}
             />
-        </View>
+
+            <Text>Total: ${myTotal.toFixed(2)}</Text>
+        </SafeAreaView>
     )
 };
 
@@ -75,6 +82,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
+      width: '100%',
       padding: 10
     },
   });

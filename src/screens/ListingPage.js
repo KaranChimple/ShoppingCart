@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {View, Text, ActivityIndicator, FlatList, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import {View, Text, FlatList, StyleSheet, Image, SafeAreaView, Button } from 'react-native';
 import { getItemList } from '../actions/fetchList';
 import { SCREEN_NAMES } from '../../constants';
 import { updateCart } from '../actions/updateCart';
@@ -43,13 +43,15 @@ export const ListingPage = ({changeScreen = () => {}}) => {
         )
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.inviteText}>Welcome To Pretty Little Things</Text>
+            <Text style={styles.inviteText}>Here's the list of available items to shop:</Text>
             <FlatList
             data={data || []}
             renderItem={renderItem}
             ItemSeparatorComponent={ () => <View style={{margin: 16}} />}
             />
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -61,4 +63,9 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 10
     },
+    inviteText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 8
+    }
   });

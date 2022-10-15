@@ -34,7 +34,7 @@ export default function cartReducer(state = initialState, action = {}) {
                   cartList: state.cartList.map(item => item.id === currentListItem.id
                     ? {
                       ...item,
-                      count: type === 'ADD' ? item.count + 1 : item.count - 1,
+                      count: type === 'ADD' ? item.count + 1 : Math.max(item.count - 1, 0),
                     }
                     : item
                   )
